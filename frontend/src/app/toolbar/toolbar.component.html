@@ -1,0 +1,36 @@
+<mat-toolbar class="main-toolbar">
+  <button mat-icon-button routerLink="/">
+    <mat-icon>home</mat-icon>
+    {{ title }}
+  </button>
+
+  <span class="fill-remaining-space"></span>
+
+  <button
+    mat-icon-button
+    [mat-menu-trigger-for]="menu"
+    fxHide="false"
+    fxHide.gt-sm
+  >
+  <mat-icon>menu</mat-icon>
+  </button>
+  
+  <mat-menu #menu="matMenu">
+    <ng-container *ngIf="isLoggedIn">
+      <button
+        mat-button
+        [routerLink]="['korisnickiProfil/' + loggedUserUsername]">
+        Korisnički podaci
+      </button>
+    </ng-container>
+
+    <ng-container *ngIf="isLoggedIn; else elseTemplate">
+      <button mat-button (click)="onLogout()">Logout</button>
+    </ng-container>
+
+    <ng-template #elseTemplate>
+      <button mat-button routerLink="login">Login</button>
+    </ng-template>
+
+  </mat-menu>
+</mat-toolbar>

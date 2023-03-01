@@ -1,0 +1,63 @@
+<div [formGroup]="zahtevForm">
+    <mat-card class="zahtev-card">
+        <mat-card-title>Kreiraj zahtev za lične podatke</mat-card-title>
+        
+        <mat-form-field class="zahtev-form">
+            <mat-label>Vrsta zahteva</mat-label>
+            <mat-select formControlName="vrstaZahteva" [required]="true">
+            <mat-option *ngFor="let vrsta of vrstaZahteva" [value]="vrsta">
+              {{vrsta}}
+            </mat-option>
+            </mat-select>
+            <mat-error>{{formError.mapErrors($any(zahtevForm).get('vrstaZahteva'), 'Vrsta zahteva')}}</mat-error>
+        </mat-form-field><br>
+
+        <mat-form-field class="zahtev-form">
+          <mat-label>Komentar</mat-label>
+          <input matInput type="text" name="komentar" formControlName="komentar">
+        </mat-form-field><br>
+  
+        <button mat-raised-button color="accent" (click)="openDialog()">Sledeći korak</button>
+    </mat-card>
+</div>
+<div>
+
+    <h3>Pregled postojeih zahteva</h3>
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource">
+      
+          <ng-container matColumnDef="no">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let i = index;"> {{i+1}} </td>
+          </ng-container>
+      
+          <ng-container matColumnDef="vrstaZahteva">
+            <th mat-header-cell *matHeaderCellDef> Vrsta zahteva </th>
+            <td mat-cell *matCellDef="let zahtev"> {{zahtev.vrstaZahteva}} </td>
+          </ng-container>
+      
+          <ng-container matColumnDef="datumPodnosenja">
+            <th mat-header-cell *matHeaderCellDef> Datum podnošenja </th>
+            <td mat-cell *matCellDef="let zahtev"> {{zahtev.datumPodnosenjaZahteva | date:'medium' }} </td>
+          </ng-container>
+      
+          <ng-container matColumnDef="komentar">
+            <th mat-header-cell *matHeaderCellDef> Komentar </th>
+            <td mat-cell *matCellDef="let zahtev"> {{zahtev.komentar}} </td>
+          </ng-container>
+          
+          <ng-container matColumnDef="datumFinalizacije">
+            <th mat-header-cell *matHeaderCellDef> Datum finalizacije zahteva </th>
+            <td mat-cell *matCellDef="let zahtev"> {{zahtev.datumFinalizacijeZahteva  | date:'medium' }} </td>
+          </ng-container>
+
+      
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
+</div>
+
+

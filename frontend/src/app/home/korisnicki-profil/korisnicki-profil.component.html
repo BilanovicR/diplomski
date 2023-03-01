@@ -1,0 +1,35 @@
+<div class="korisnik-div" [formGroup]="korisnickiProfilForm">
+    <mat-card class="korisnik-card">
+
+      <mat-card-title>Korisnički podaci</mat-card-title>
+
+      <mat-form-field class="korisnik-form">
+        <mat-label>Korisničko ime</mat-label>
+        <input matInput type="text" name="korisnickoIme" formControlName="korisnickoIme" readonly>
+        <mat-error>{{formError.mapErrors($any(korisnickiProfilForm).get('korisnickoIme'), 'Korisnicko ime')}}</mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field class="korisnik-form">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" name="email"formControlName="email" readonly>
+        <mat-error>{{formError.mapErrors($any(korisnickiProfilForm).get('email'), 'Email')}}</mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field class="korisnik-form">
+        <mat-label>Šifra</mat-label>
+        <input matInput type="password" name="password" formControlName="sifra"
+          (change)="$any(korisnickiProfilForm).get('confirmPassword').updateValueAndValidity()">
+        <mat-error>{{formError.mapErrors($any(korisnickiProfilForm).get('sifra'), 'Sifra')}}</mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field class="korisnik-form">
+        <mat-label>Potvrdite šifru</mat-label>
+        <input matInput type="password" name="confirmPassword"
+          formControlName="confirmPassword">
+          <mat-error>{{formError.mapErrors($any(korisnickiProfilForm).get('confirmPassword'), 'Confirm password')}}</mat-error>
+      </mat-form-field>
+      <br>
+
+      <button mat-raised-button color="accent" (click)="izmeniSifru()" [disabled]="sifraIzmenjena">Sačuvaj izmene</button>
+    </mat-card>
+  </div>

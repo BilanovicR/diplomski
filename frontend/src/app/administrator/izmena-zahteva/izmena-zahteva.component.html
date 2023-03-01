@@ -1,0 +1,35 @@
+<div [formGroup]="zahtevForm" class="zahtev-div">
+    <mat-card class="zahtev-card">
+        <mat-card-title>Uredi zahtev za lične podatke</mat-card-title>
+        
+        <mat-form-field class="zahtev-form">
+            <mat-label>Vrsta zahteva</mat-label>
+            <input matInput type="text" name="vrstaZahteva" formControlName="vrstaZahteva" readonly="true">            
+        </mat-form-field><br>
+
+        <mat-form-field class="zahtev-form">
+            <mat-label>Datum podnošenja</mat-label>
+            <input matInput type="datetime" name="datumPodnosenjaZahteva" formControlName="datumPodnosenjaZahteva" readonly>
+        </mat-form-field><br>
+  
+        <mat-form-field class="zahtev-form">
+            <mat-label>Podnosilac</mat-label>
+            <input  matInput type="text" name="podnosilacZahteva" formControlName="podnosilacZahteva" readonly>
+        </mat-form-field><br>
+
+        <mat-form-field class="zahtev-form">
+            <mat-label>Komentar</mat-label>
+            <input matInput type="text" name="komentar" formControlName="komentar">
+          </mat-form-field><br>
+
+          <mat-form-field class="zahtev-form">
+            <mat-label>Datum finalizacije</mat-label>
+            <input matInput type="datetime" name="datumFinalizacijeZahteva" formControlName="datumFinalizacijeZahteva" readonly>
+        </mat-form-field><br>
+
+
+        <button mat-raised-button color="accent" [mat-dialog-close] (click)="sacuvaj()" [disabled]="zahtevZakljucen">Sačuvaj izmene</button><br>
+        <button mat-raised-button color="accent" [mat-dialog-close] (click)="zakljuci()" [disabled]="zahtevZakljucen">Zaključi zahtev</button><br>
+        <button mat-raised-button color="accent" [mat-dialog-close] (click)="onNoClick()">Zatvori</button>
+    </mat-card>
+</div>

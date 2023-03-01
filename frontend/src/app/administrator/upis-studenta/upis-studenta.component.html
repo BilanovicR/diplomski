@@ -1,0 +1,25 @@
+<div>
+    <form (submit)="onSave()" [formGroup]="form" method="post">
+      <mat-grid-list cols="3">
+        <mat-card class="student-card">
+          <app-student-licni-podaci [parrentForm]="form"></app-student-licni-podaci>
+        </mat-card>
+  
+        <mat-card>
+          <app-student-skola [parrentForm]="form"></app-student-skola>
+        </mat-card>
+  
+        <mat-card>
+          <app-student-detalji [parrentForm]="form"></app-student-detalji>
+        </mat-card>
+
+        <mat-card>
+            <app-studijski-programi [parrentForm]="form"></app-studijski-programi>
+        </mat-card>
+        
+      </mat-grid-list>
+  
+      <button mat-raised-button color="accent" type="submit" >Upiši studenta</button>
+    </form>
+  </div>
+  

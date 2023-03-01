@@ -1,0 +1,18 @@
+<app-toolbar></app-toolbar>
+
+<mat-drawer-container class="main-container" autosize>
+    <mat-drawer #drawer class="main-sidenav" mode="side" [(opened)]="opened" opened="true">
+        <app-admin-menu *ngIf="(roles == 'administrator')"></app-admin-menu>
+        <app-student-menu *ngIf="(roles == 'student')"></app-student-menu>
+
+    </mat-drawer>
+
+    <button type="button" mat-button-icon (click)="drawer.toggle()" *ngIf="(roles == 'administrator') || (roles == 'student') || (roles == 'profesor')">
+        <mat-icon *ngIf="opened">menu_open</mat-icon>
+        <mat-icon *ngIf="!opened">keyboard_tab</mat-icon>
+    </button>
+
+    <div class="main-sidenav-content">
+        <router-outlet></router-outlet>
+    </div>
+</mat-drawer-container>
