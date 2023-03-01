@@ -1,0 +1,169 @@
+<div class="detalji-div" [formGroup]="detaljiForm">
+  <mat-card class="detalji-card">
+    <mat-card-header>
+      <mat-card-title> Detalji </mat-card-title>
+    </mat-card-header>
+
+    <mat-form-field class="detalji-form">
+      <mat-label>Mesto stanovanja za vreme studija</mat-label>
+      <input
+        matInput
+        type="text"
+        name="mestoStanovanja"
+        formControlName="mestoStanovanja"
+      />
+      <mat-error>{{
+        formError.mapErrors(
+          $any(detaljiForm).get("mestoStanovanja"),
+          "mestoStanovanja"
+        )
+      }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="detalji-form">
+      <mat-label>Tip smeštaja</mat-label>
+      <mat-select formControlName="tipSmestaja">
+        <mat-option
+          *ngFor="let tip of tipSmestaja | keyvalue"
+          [value]="tip.key"
+        >
+          {{ tip.value }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="detalji-form">
+      <mat-label>Način finansiranja studija</mat-label>
+      <mat-select formControlName="nacinFinansiranja">
+        <mat-option
+          *ngFor="let nacin of nacinFinansiranja | keyvalue"
+          [value]="nacin.key"
+        >
+          {{ nacin.value }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="detalji-form">
+      <mat-label>Izvor sredstava za život tokom studija</mat-label>
+      <mat-select formControlName="izvorSredstava" multiple>
+        <mat-option *ngFor="let p of izvorSredstava | keyvalue" [value]="p.key">
+          {{ p.value }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="detalji-form">
+      <mat-label>Glavni izvor sredstava za život tokom studija</mat-label>
+      <mat-select formControlName="glavniIzvorSredstava">
+        <mat-option *ngFor="let p of izvorSredstava | keyvalue" [value]="p.key">
+          {{ p.value }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-checkbox class="example-margin" formControlName="jeZaposlen"
+      >Zaposlen</mat-checkbox>
+
+    <mat-form-field class="lp-form">
+      <mat-label>Izdržava druga lica</mat-label>
+      <mat-select formControlName="izdrzavaDrugaLica" multiple>
+        <mat-option
+          *ngFor="let i of izdrzavaDrugaLica | keyvalue"
+          [value]="i.key"
+        >
+          {{ i.value }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-checkbox class="example-margin" formControlName="izdrzavalacJeZaposlen"
+      >Roditelj/Izdržavalac je zaposlen</mat-checkbox>
+
+    <mat-form-field class="detalji-form">
+      <mat-label>Zanimanje roditelja / izdržavaoca</mat-label>
+      <input
+        matInput
+        type="text"
+        name="zanimanjeIzdrzavaoca"
+        formControlName="zanimanjeIzdrzavaoca"
+      />
+    </mat-form-field>
+
+    <mat-form-field class="detalji-form">
+      <mat-label>Školska sprema oca</mat-label>
+      <mat-select formControlName="skolskaSpremaOca">
+        <mat-option *ngFor="let s of skolskaSprema | keyvalue" [value]="s.key">
+          {{ s.value }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br />
+    <mat-form-field class="detalji-form">
+      <mat-label>Školska sprema majke</mat-label>
+      <mat-select formControlName="skolskaSpremaMajke">
+        <mat-option *ngFor="let s of skolskaSprema | keyvalue" [value]="s.key">
+          {{ s.value }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="detalji-form">
+      <mat-label
+        >Potreban vid podrške prilikom obavljanja svakodenvnih aktivnosti na
+        Fakultetu/ Akademiji/ Visokoškolskoj ustanovi</mat-label>
+      <mat-select formControlName="potrebanVidPodrske" multiple>
+        <mat-option *ngFor="let v of vidPodrske | keyvalue" [value]="v.key">
+          {{ v.value }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- SV50 NAKON DIPLOMIRANJA -->
+    <div *ngIf="loggedUserRole == 'administrator'">
+      <div>ŠV 50 obrazac</div>
+
+      <section class="detalji-form">
+        <mat-checkbox class="example-margin" formControlName="jeDiplomirao">Student je diplomirao</mat-checkbox>
+      </section>
+
+      <section class="detalji-form">
+        <mat-checkbox
+          class="example-margin"
+          formControlName="istaVrstaStudijaNaDrugomFakultetu"
+          >Ista vrsta studija na drugom fakultetu</mat-checkbox
+        >
+      </section>
+
+      <mat-form-field class="detalji-form">
+        <mat-label>Drugi fakultet</mat-label>
+        <input
+          matInput
+          type="text"
+          name="drugiFakultet"
+          formControlName="drugiFakultet"
+        />
+      </mat-form-field>
+
+      <mat-form-field class="detalji-form">
+        <mat-label>Godina završetka drugog fakulteta</mat-label>
+        <input
+          matInput
+          type="text"
+          name="godinaZavrsetkaDrugogFakulteta"
+          formControlName="godinaZavrsetkaDrugogFakulteta"
+        />
+      </mat-form-field>
+
+      <mat-form-field class="detalji-form">
+        <mat-label>Država završetka drugog fakulteta</mat-label>
+        <input
+          matInput
+          type="text"
+          name="drzavaZavrsetkaDrugogFakulteta"
+          formControlName="drzavaZavrsetkaDrugogFakulteta"
+        />
+      </mat-form-field>
+    </div>
+    <!-- SV50 NAKON DIPLOMIRANJA -->
+  </mat-card>
+</div>

@@ -1,0 +1,220 @@
+<div class="lp-div" [formGroup]="licniPodaciForm">
+  <mat-card class="lp-card">
+    <mat-card-header>
+      <mat-card-title> Lični podaci </mat-card-title>
+    </mat-card-header>
+
+    <div class="image-div">
+      <span class="image-preview" *ngIf="imagePreview && imagePreview !== ''">
+        <img [src]="imagePreview" />
+      </span>
+      <span class="image-preview" *ngIf="!imagePreview">
+        <img
+          [src]="fileUrl + $any(licniPodaciForm).get('fotografijaURL').value"
+        />
+      </span>
+      <div>
+        <button mat-stroked-button type="button" (click)="filePicker.click()">
+          Dodaj novu sliku
+        </button>
+        <input
+          hidden
+          type="file"
+          #filePicker
+          (change)="onImagePicked($event)"
+        />
+        <mat-error>{{
+          formError.mapErrors(
+            $any(licniPodaciForm).get("fotografija"),
+            "Fotografija"
+          )
+        }}</mat-error>
+      </div>
+    </div>
+
+    <mat-form-field class="lp-form">
+      <mat-label>Ime</mat-label>
+      <input matInput type="text" name="ime" formControlName="ime" />
+      <mat-error>{{
+        formError.mapErrors($any(licniPodaciForm).get("ime"), "Ime")
+      }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="lp-form">
+      <mat-label>Prezime</mat-label>
+      <input matInput type="text" name="prezime" formControlName="prezime" />
+      <mat-error>{{
+        formError.mapErrors($any(licniPodaciForm).get("prezime"), "prezime")
+      }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="lp-form">
+      <mat-label>Ime jednog roditelja</mat-label>
+      <input
+        matInput
+        type="text"
+        name="imeRoditelja"
+        formControlName="imeRoditelja"
+      />
+      <mat-error>{{
+        formError.mapErrors(
+          $any(licniPodaciForm).get("imeRoditelja"),
+          "imeRoditelja"
+        )
+      }}</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field class="lp-form">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        type="email"
+        name="email"
+        formControlName="email"
+        readonly
+      />
+    </mat-form-field>
+    <br />
+    <mat-form-field class="lp-form">
+      <mat-label>JMBG</mat-label>
+      <input matInput type="text" name="jmbg" formControlName="jmbg" />
+      <mat-error>{{
+        formError.mapErrors($any(licniPodaciForm).get("jmbg"), "jmbg")
+      }}</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field class="lp-form">
+      <mat-label>Pol</mat-label>
+      <mat-select formControlName="pol">
+        <mat-option *ngFor="let p of pol" [value]="p">
+          {{ p }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="lp-form">
+      <mat-label>Datum rođenja</mat-label>
+      <input
+        matInput
+        type="text"
+        name="datumRodjenja"
+        formControlName="datumRodjenja"
+      />
+      <mat-error>{{
+        formError.mapErrors(
+          $any(licniPodaciForm).get("datumRodjenja"),
+          "datumRodjenja"
+        )
+      }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="lp-form">
+      <mat-label>Mesto rođenja</mat-label>
+      <input
+        matInput
+        type="text"
+        name="mestoRodjenja"
+        formControlName="mestoRodjenja"
+      />
+      <mat-error>{{
+        formError.mapErrors(
+          $any(licniPodaciForm).get("mestoRodjenja"),
+          "mestoRodjenja"
+        )
+      }}</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field class="lp-form">
+      <mat-label>Broj telefona</mat-label>
+      <input
+        matInput
+        type="text"
+        name="brojTelefona"
+        formControlName="brojTelefona"
+      />
+      <mat-error>{{
+        formError.mapErrors(
+          $any(licniPodaciForm).get("brojTelefona"),
+          "brojTelefona"
+        )
+      }}</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field class="lp-form">
+      <mat-label>Broj pasoša</mat-label>
+      <input
+        matInput
+        type="text"
+        name="brojPasosa"
+        formControlName="brojPasosa"
+      />
+
+    </mat-form-field>
+    <br />
+    <mat-form-field class="lp-form">
+      <mat-label>Prebivalište (opština/grad ili strana država)</mat-label>
+      <input
+        matInput
+        type="text"
+        name="prebivaliste"
+        formControlName="prebivaliste"
+      />
+      <mat-error>{{
+        formError.mapErrors(
+          $any(licniPodaciForm).get("prebivaliste"),
+          "prebivaliste"
+        )
+      }}</mat-error>
+    </mat-form-field>
+    <mat-form-field class="lp-form">
+      <mat-label>Naselje</mat-label>
+      <input matInput type="text" name="naselje" formControlName="naselje" />
+      <mat-error>{{
+        formError.mapErrors($any(licniPodaciForm).get("naselje"), "kucniBroj")
+      }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="lp-form">
+      <mat-label>Ulica i kućni broj</mat-label>
+      <input matInput type="text" name="ulica" formControlName="ulica" />
+      <mat-error>{{
+        formError.mapErrors($any(licniPodaciForm).get("ulica"), "ulica")
+      }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="lp-form">
+      <mat-label>Državljanstvo</mat-label>
+      <input
+        matInput
+        type="text"
+        name="drzavljanstvo"
+        formControlName="drzavljanstvo"
+      />
+      <mat-error>{{
+        formError.mapErrors(
+          $any(licniPodaciForm).get("drzavljanstvo"),
+          "drzavljanstvo"
+        )
+      }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="lp-form">
+      <mat-label>Nacionalnost</mat-label>
+      <input
+        matInput
+        type="text"
+        name="nacionalnost"
+        formControlName="nacionalnost"
+      />
+    </mat-form-field>
+
+    <mat-form-field class="lp-form">
+      <mat-label>Bračni status</mat-label>
+      <mat-select formControlName="bracniStatus">
+        <mat-option *ngFor="let status of bracniStatusi | keyvalue" [value]="status.key">
+          {{ status.value }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-card>
+</div>

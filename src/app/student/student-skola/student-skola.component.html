@@ -1,0 +1,47 @@
+<div class="skola-div" [formGroup]="skolaForm">
+    <mat-card class="skola-card">
+      <mat-card-header>
+        <mat-card-title>
+          Srednja skola
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-form-field class="skola-form">
+        <mat-label>Naziv</mat-label>
+        <input matInput type="text" name="text" formControlName="naziv">
+        <mat-error>{{formError.mapErrors($any(skolaForm).get('naziv'), 'Naziv')}}</mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field class="skola-form">
+        <mat-label>Vrsta škole</mat-label>
+        <input matInput type="text" name="text" formControlName="vrstaSkole">
+        <mat-error>{{formError.mapErrors($any(skolaForm).get('vrstaSkole'), 'Vrsta škole')}}</mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field class="skola-form">
+        <mat-label>Opština</mat-label>
+        <input matInput type="text" name="text" formControlName="opstina">
+        <mat-error>{{formError.mapErrors($any(skolaForm).get('opstina'), 'Opstina')}}</mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field class="skola-form">
+        <mat-label>Grad</mat-label>
+        <input matInput type="text" name="text" formControlName="grad">
+        <mat-error>{{formError.mapErrors($any(skolaForm).get('grad'), 'Grad')}}</mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field class="skola-form">
+        <mat-label>Država</mat-label>
+        <input matInput type="text" name="text" formControlName="drzava">
+        <mat-error>{{formError.mapErrors($any(skolaForm).get('drzava'), 'Drzava')}}</mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field class="skola-form">
+        <mat-label>Godina završetka</mat-label>
+        <input matInput type="text" name="text" formControlName="godinaZavrsetka">
+        <mat-error>{{formError.mapErrors($any(skolaForm).get('godinaZavrsetka'), 'Godina zavrsetka')}}</mat-error>
+      </mat-form-field>
+      <br>
+
+    </mat-card>
+  </div>

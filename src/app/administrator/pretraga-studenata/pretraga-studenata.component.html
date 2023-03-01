@@ -1,0 +1,64 @@
+<div [formGroup]="searchForm">
+    <mat-card>  
+      <mat-form-field appearance="outline">
+        <mat-label>Ime</mat-label>
+        <input matInput type="text" formControlName="ime">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Prezime</mat-label>
+        <input matInput type="text" formControlName="prezime">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Broj indeksa</mat-label>
+        <input matInput type="text" formControlName="brojIndeksa">
+      </mat-form-field>
+
+      <button mat-stroked-button color="primary" (click)="search()">Search</button>
+  
+    </mat-card>
+
+</div>
+  <h3>Rezultat pretrage</h3>
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+  
+      <ng-container matColumnDef="no">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let i = index;"> {{i+1}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="ime">
+        <th mat-header-cell *matHeaderCellDef> Ime </th>
+        <td mat-cell *matCellDef="let student"> {{student.ime}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="prezime">
+        <th mat-header-cell *matHeaderCellDef> Prezime </th>
+        <td mat-cell *matCellDef="let student"> {{student.prezime}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef> Email </th>
+        <td mat-cell *matCellDef="let student"> {{student.email}} </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="brojIndeksa">
+        <th mat-header-cell *matHeaderCellDef> Broj indeksa </th>
+        <td mat-cell *matCellDef="let student"> {{student.brojIndeksa}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="prikaz">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let student">
+          <button routerLink = "/student/{{student.brojIndeksa}}"> Prikaži </button>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>

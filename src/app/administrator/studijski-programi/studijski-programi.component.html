@@ -1,0 +1,44 @@
+<div class="container" [formGroup]="studijskiProgramForm">
+    
+  <mat-card class="fakultet-card">
+
+    <mat-card-header>
+      <mat-card-title>
+        Izbor studijskog programa        
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-form-field class="fakultet-form">
+      <mat-label>Fakultet</mat-label>
+      <mat-select name = "fakultet" formControlName="fakultet">
+        <mat-option *ngFor="let fakultet of fakulteti" [value]="fakultet" (click)="getStudijskiProgramiByFakultet(fakultet.id)"> {{fakultet.naziv}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <mat-form-field class="fakultet-form">
+      <mat-label>Studijski program</mat-label>
+      <mat-select name = "studijskiProgram" formControlName="studijskiProgram">
+        <mat-option *ngFor="let studijskiProgram of studijskiProgrami" [value]="studijskiProgram">
+          {{studijskiProgram.naziv}} | {{studijskiProgram.vrstaStudija}} | {{studijskiProgram.stepenStudija}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="fakultet-form">
+      <mat-label>Dodeljen broj indeksa</mat-label>
+      <input matInput type="text" name="brojIndeksa" formControlName="brojIndeksa"/>
+    </mat-form-field>
+
+    <mat-form-field class="fakultet-form">
+      <mat-label>Stečeno ESPB bodova:</mat-label>
+      <input matInput type="text" name="espbStecenoUkupno" formControlName="espbStecenoUkupno"/>
+    </mat-form-field>
+
+    <mat-form-field class="fakultet-form">
+      <mat-label>Godina upisa:</mat-label>
+      <input matInput type="text" name="godinaUpisa" formControlName="godinaUpisa"/>
+    </mat-form-field>
+    
+  </mat-card>
+</div>

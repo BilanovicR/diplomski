@@ -1,0 +1,33 @@
+<div>Moji upisi:</div>
+<div *ngFor="let upis of upisi">
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-description style="float:left;">
+        {{upis.godinaUpisa}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <ul>
+      <li>
+        <label for="facultyName">ESPB:</label>
+        {{upis.espbStecenoUkupno}}
+      </li>
+      <li>
+        <label for="naziv">Studijski program:</label>
+        {{upis.studijskiProgram.naziv}}
+      </li>
+      <li>
+        <label for="numIndex">Departman:</label>
+        {{upis.studijskiProgram.departman}}
+      </li>
+      <li>
+        <label for="numIndex">Vrsta studija:</label>
+        {{upis.studijskiProgram.vrstaStudija}}
+      </li>
+      <li>
+        <label for="numIndex">Stepen studija:</label>
+        {{upis.studijskiProgram.stepenStudija}}
+      </li>
+    </ul>
+  </mat-expansion-panel>
+
+</div>
