@@ -21,11 +21,9 @@ public class UpisGodine {
 	@Column(length=128, nullable = false)
 	private String espbStecenoUkupno;
 	
-//	@JsonView(ShowStudijskiProgram.class)
 	@ManyToOne(fetch = FetchType.EAGER)
 	private StudijskiProgram studijskiProgram;
 	
-//	@JsonView(ShowStudent.class)
 	@ManyToOne(fetch = FetchType.EAGER)
 	private Student student;
 

@@ -56,8 +56,8 @@ public class StudentServis {
 	public Iterable<Student> getStudenti(){
 		return studentRepo.findAll();
 	}
-	public Optional<Student> getStudentByBrojIndeksa(String korIme) {
-        return studentRepo.findByBrojIndeksa(korIme);
+	public Optional<Student> getStudentByBrojIndeksa(String indeks) {
+        return studentRepo.findByBrojIndeksa(indeks);
     }
 	
 	public Optional<Student> getStudentByID(Long id) {
@@ -72,7 +72,8 @@ public class StudentServis {
             student.getStudent().setId(Stu.get().getId());
             student.getStudent().setBrojIndeksa(Stu.get().getBrojIndeksa());
             student.getStudent().setEmail(Stu.get().getEmail());
-            student.getStudent().setJmbg(Stu.get().getJmbg());
+            student.getStudent().setJmbg(Stu.get().getJmbg());student.getStudent().setProsecnaOcena(Stu.get().getProsecnaOcena());
+            student.getStudent().setStatus(Stu.get().getStatus());
             
             student.getStudent().setAllUpisGodine(Stu.get().getUpisGodine());
             student.setStudent(studentRepo.save(student.getStudent()));
@@ -87,7 +88,7 @@ public class StudentServis {
         if(student.getDetalji()!= null) {
         	StudentDetalji detalji = detaljiServis.getDetaljeStudenta(ID);
         	student.getDetalji().setId(detalji.getId());
-        	student.setDetalji(detaljiServis.addDetaljeForStudent(detalji, Stu.get()));        	
+        	student.setDetalji(detaljiServis.addDetaljeForStudent(student.getDetalji(), Stu.get()));        	
         }
         
         return student;
@@ -102,13 +103,12 @@ public class StudentServis {
 		
     }
 	
-	public Student obrisiStudenta(Long studentID) {
-		Optional<Student> student = getStudentByID(studentID);		
-		if(student.isPresent() && student.get().getJeDiplomirao()) {		
-			detaljiServis.removeStudentDetalji(studentID);
-			korisnikServis.removeKorisnik(studentID);		
+	public void obrisiStudenta(String brojIndeksa) {
+		Optional<Student> student = getStudentByBrojIndeksa(brojIndeksa);		
+		if(student.isPresent()) {
+			detaljiServis.removeStudentDetalji(brojIndeksa);
+			korisnikServis.removeKorisnik(brojIndeksa);
 		}
-		return student.get();
 	}
 
 

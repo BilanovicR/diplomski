@@ -11,4 +11,7 @@ public interface StudentDetaljiRepository extends JpaRepository<StudentDetalji, 
 
 	@Query("SELECT sd FROM StudentDetalji sd WHERE sd.student.id = ?1")
 	StudentDetalji findByStudentId(Long studentId);
+	
+	@Query("SELECT sd FROM StudentDetalji sd WHERE sd.student.brojIndeksa = ?1")
+	StudentDetalji findByStudentBrojIndeksa(String brojIndeksa);
 }

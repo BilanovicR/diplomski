@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import diplomski.DTO.NoviUpisGodineDTO;
 import diplomski.DTO.UpisGodineDTO;
 import diplomski.models.StudijskiProgram;
 import diplomski.models.UpisGodine;
@@ -21,6 +23,7 @@ import diplomski.utils.View.HideOptionalProperties;
 
 @RestController
 @RequestMapping("/upis")
+@CrossOrigin(origins={"http://localhost:4200"})
 public class UpisGodineController {
 	
 	@Autowired
@@ -53,7 +56,7 @@ public class UpisGodineController {
     }
     
     @JsonView(HideOptionalProperties.class)
-    @PreAuthorize("hasAnyAuthority('administrator')")
+   @PreAuthorize("hasAnyAuthority('administrator')")
     @RequestMapping(value="/studijskiProgram/{studijskiProgram}/godina/{godinaUpisa}/upisiStudenta", method=RequestMethod.POST)
     public ResponseEntity<UpisGodine> upisiStudenta(@PathVariable Long studijskiProgram, @PathVariable String godinaUpisa, @RequestBody UpisGodine upis) {
     	StudijskiProgram sp = programServis.getStudijskiProgramByID(studijskiProgram).get();
@@ -63,6 +66,21 @@ public class UpisGodineController {
     	upis = upisServis.addUpisGodine(upis);
     	
         return new ResponseEntity<UpisGodine>(upis, HttpStatus.OK);
-    } 
+    }
+    
+    @JsonView(HideOptionalProperties.class)
+    @PreAuthorize("hasAnyAuthority('administrator')")
+    @RequestMapping(value="/add", method=RequestMethod.POST)
+    public ResponseEntity<UpisGodine> addUpis(@RequestBody NoviUpisGodineDTO upis) {
+        return new ResponseEntity<UpisGodine>(upisServis.addNoviUpis(upis), HttpStatus.OK);
+    }
+    
+    @JsonView(HideOptionalProperties.class)
+    @PreAuthorize("hasAnyAuthority('student')")
+    @RequestMapping(value="/sviUpisi/{studentIndeks}", method=RequestMethod.GET)
+    public ResponseEntity<Iterable<UpisGodine>> getUpisiPoStudentu(@PathVariable String studentIndeks) {
+    	Iterable<UpisGodine> upisi = upisServis.getUpisiByStudent(studentIndeks);
+        return new ResponseEntity<Iterable<UpisGodine>>(upisi, HttpStatus.OK);
+    }
 
 }

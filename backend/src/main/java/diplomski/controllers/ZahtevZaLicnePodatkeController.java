@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import diplomski.services.ZahtevZaLicnePodatkeServis;
 
 @RestController
 @RequestMapping("/zahtevi")
+@CrossOrigin(origins={"http://localhost:4200"})
 public class ZahtevZaLicnePodatkeController {
 	
 	@Autowired
@@ -35,6 +37,13 @@ public class ZahtevZaLicnePodatkeController {
     	Iterable<ZahtevZaLicnePodatke> zahtevi = servisZaZahteve.getZahteviByKorisnik(korisnikId);
         return new ResponseEntity<Iterable<ZahtevZaLicnePodatke>>(zahtevi, HttpStatus.OK);
     }
+    
+    @RequestMapping(value="/korisnik/{korisnickoIme}", method=RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('administrator', 'student', 'profesor')")
+    public ResponseEntity<Iterable<ZahtevZaLicnePodatke>> getZahteviByKorisnickoIme(@PathVariable String korisnickoIme) {
+    	Iterable<ZahtevZaLicnePodatke> zahtevi = servisZaZahteve.getZahteviByKorisnickoIme(korisnickoIme);
+        return new ResponseEntity<Iterable<ZahtevZaLicnePodatke>>(zahtevi, HttpStatus.OK);
+    }
 
     @PreAuthorize("hasAnyAuthority('administrator', 'student', 'profesor')")
     @RequestMapping(value="/{id}", method=RequestMethod.GET)
@@ -48,16 +57,16 @@ public class ZahtevZaLicnePodatkeController {
 
     @PreAuthorize("hasAnyAuthority('administrator', 'student', 'profesor')")
     @RequestMapping(value="/add", method=RequestMethod.POST)
-    public ResponseEntity<ZahtevZaLicnePodatke> addPost(@RequestBody ZahtevZaLicnePodatke zahtev) {
-        servisZaZahteve.addZahtev(zahtev);
+    public ResponseEntity<ZahtevZaLicnePodatke> addZahtev(@RequestBody ZahtevZaLicnePodatke zahtev) {
+    	servisZaZahteve.addZahtev(zahtev);
         return new ResponseEntity<ZahtevZaLicnePodatke>(zahtev, HttpStatus.CREATED);
     }
 
     @PreAuthorize("hasAnyAuthority('administrator', 'student', 'profesor')")
-    @RequestMapping(value="/{id}", method=RequestMethod.PUT)
-    public ResponseEntity<ZahtevZaLicnePodatke> updatePost(@PathVariable Long id, @RequestBody ZahtevZaLicnePodatke zahtev) {
-    	servisZaZahteve.updateZahtev(id, zahtev);
-        return new ResponseEntity<ZahtevZaLicnePodatke>(zahtev, HttpStatus.CREATED);
+    @RequestMapping(value="/edit/{id}", method=RequestMethod.PUT)
+    public ResponseEntity<ZahtevZaLicnePodatke> updateZahtev(@PathVariable Long id, @RequestBody ZahtevZaLicnePodatke zahtev) {
+    	ZahtevZaLicnePodatke z = servisZaZahteve.updateZahtev(id, zahtev);
+    	return new ResponseEntity<ZahtevZaLicnePodatke>(z, HttpStatus.CREATED);
     }
 	
 

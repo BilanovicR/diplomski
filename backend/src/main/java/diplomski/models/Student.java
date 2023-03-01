@@ -69,7 +69,7 @@ public class Student {
 	private String ulica;
 	
 	@Column(length=128, nullable = false)
-	private String kucniBroj;
+	private String naselje;
 	
 	@Column(length=128, nullable = false)
 	private String drzavljanstvo;
@@ -213,12 +213,12 @@ public class Student {
 		this.ulica = ulica;
 	}
 
-	public String getKucniBroj() {
-		return kucniBroj;
+	public String getNaselje() {
+		return naselje;
 	}
 
-	public void setKucniBroj(String kucniBroj) {
-		this.kucniBroj = kucniBroj;
+	public void setNaselje(String naselje) {
+		this.naselje = naselje;
 	}
 
 	public String getDrzavljanstvo() {
@@ -288,7 +288,7 @@ public class Student {
 
 	public Student(String brojIndeksa, String ime, String prezime, String imeRoditelja, String email, String jmbg,
 			String pol, String fotografijaURL, Date datumRodjenja, String mestoRodjenja, String brojTelefona,
-			String brojPasosa, String prebivaliste, String ulica, String kucniBroj, String drzavljanstvo,
+			String brojPasosa, String prebivaliste, String ulica, String naselje, String drzavljanstvo,
 			String nacionalnost, String bracniStatus, String prosecnaOcena, Boolean jeDiplomirao, String status,
 			 Set<UpisGodine> upisGodine) {
 		super();
@@ -306,7 +306,7 @@ public class Student {
 		this.brojPasosa = brojPasosa;
 		this.prebivaliste = prebivaliste;
 		this.ulica = ulica;
-		this.kucniBroj = kucniBroj;
+		this.naselje = naselje;
 		this.drzavljanstvo = drzavljanstvo;
 		this.nacionalnost = nacionalnost;
 		this.bracniStatus = bracniStatus;
@@ -318,7 +318,7 @@ public class Student {
 
 	public Student(Long id, String brojIndeksa, String ime, String prezime, String imeRoditelja, String email,
 			String jmbg, String pol, String fotografijaURL, Date datumRodjenja, String mestoRodjenja,
-			String brojTelefona, String brojPasosa, String prebivaliste, String ulica, String kucniBroj,
+			String brojTelefona, String brojPasosa, String prebivaliste, String ulica, String naselje,
 			String drzavljanstvo, String nacionalnost, String bracniStatus, String prosecnaOcena, Boolean jeDiplomirao,
 			String status, Set<UpisGodine> upisGodine) {
 		super();
@@ -337,7 +337,7 @@ public class Student {
 		this.brojPasosa = brojPasosa;
 		this.prebivaliste = prebivaliste;
 		this.ulica = ulica;
-		this.kucniBroj = kucniBroj;
+		this.naselje = naselje;
 		this.drzavljanstvo = drzavljanstvo;
 		this.nacionalnost = nacionalnost;
 		this.bracniStatus = bracniStatus;
@@ -350,5 +350,18 @@ public class Student {
 	public Student() {
 		super();
 	}
-		
+
+	@Override
+	public String toString() {
+		return "Student [id=" + id + ", brojIndeksa=" + brojIndeksa + ", ime=" + ime + ", prezime=" + prezime
+				+ ", imeRoditelja=" + imeRoditelja + ", email=" + email + ", jmbg=" + jmbg + ", pol=" + pol
+				+ ", fotografijaURL=" + fotografijaURL + ", datumRodjenja=" + datumRodjenja + ", mestoRodjenja="
+				+ mestoRodjenja + ", brojTelefona=" + brojTelefona + ", brojPasosa=" + brojPasosa + ", prebivaliste="
+				+ prebivaliste + ", ulica=" + ulica + ", naselje=" + naselje + ", drzavljanstvo=" + drzavljanstvo
+				+ ", nacionalnost=" + nacionalnost + ", bracniStatus=" + bracniStatus + ", prosecnaOcena="
+				+ prosecnaOcena + ", jeDiplomirao=" + jeDiplomirao + ", status=" + status + ", upisGodine=" + upisGodine
+				+ "]";
+	}
+
+	
 }

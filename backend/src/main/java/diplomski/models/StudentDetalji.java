@@ -34,8 +34,8 @@ public class StudentDetalji {
 	@Column(columnDefinition = "boolean default false")
 	private Boolean jeZaposlen;
 	
-	@Column(columnDefinition = "boolean default false")
-	private Boolean izdrzavaDrugaLica;
+	@Column(length=128, nullable = false)
+	private String izdrzavaDrugaLica;
 	
 	@Column(columnDefinition = "boolean default false")
 	private Boolean izdrzavalacJeZaposlen;
@@ -111,11 +111,11 @@ public class StudentDetalji {
 		this.jeZaposlen = jeZaposlen;
 	}
 
-	public Boolean getIzdrzavaDrugaLica() {
+	public String getIzdrzavaDrugaLica() {
 		return izdrzavaDrugaLica;
 	}
 
-	public void setIzdrzavaDrugaLica(Boolean izdrzavaDrugaLica) {
+	public void setIzdrzavaDrugaLica(String izdrzavaDrugaLica) {
 		this.izdrzavaDrugaLica = izdrzavaDrugaLica;
 	}
 
@@ -216,7 +216,7 @@ public class StudentDetalji {
 	}
 
 	public StudentDetalji(Long id, String mestoStanovanja, String tipSmestaja, String izvorSredstava,
-			String glavniIzvorSredstava, Boolean jeZaposlen, Boolean izdrzavaDrugaLica, Boolean izdrzavalacJeZaposlen,
+			String glavniIzvorSredstava, Boolean jeZaposlen, String izdrzavaDrugaLica, Boolean izdrzavalacJeZaposlen,
 			String zanimanjeIzdrzavaoca, String skolskaSpremaOca, String skolskaSpremaMajke, String potrebanVidPodrske,
 			String nacinFinansiranja, Boolean istaVrstaStudijaNaDrugomFakultetu, String drugiFakultet,
 			String godinaZavrsetkaDrugogFakulteta, String drzavaZavrsetkaDrugogFakulteta, Student student) {
@@ -243,6 +243,19 @@ public class StudentDetalji {
 
 	public StudentDetalji() {
 		super();
+	}
+
+	@Override
+	public String toString() {
+		return "StudentDetalji [id=" + id + ", mestoStanovanja=" + mestoStanovanja + ", tipSmestaja=" + tipSmestaja
+				+ ", izvorSredstava=" + izvorSredstava + ", glavniIzvorSredstava=" + glavniIzvorSredstava
+				+ ", jeZaposlen=" + jeZaposlen + ", izdrzavaDrugaLica=" + izdrzavaDrugaLica + ", izdrzavalacJeZaposlen="
+				+ izdrzavalacJeZaposlen + ", zanimanjeIzdrzavaoca=" + zanimanjeIzdrzavaoca + ", skolskaSpremaOca="
+				+ skolskaSpremaOca + ", skolskaSpremaMajke=" + skolskaSpremaMajke + ", potrebanVidPodrske="
+				+ potrebanVidPodrske + ", nacinFinansiranja=" + nacinFinansiranja
+				+ ", istaVrstaStudijaNaDrugomFakultetu=" + istaVrstaStudijaNaDrugomFakultetu + ", drugiFakultet="
+				+ drugiFakultet + ", godinaZavrsetkaDrugogFakulteta=" + godinaZavrsetkaDrugogFakulteta
+				+ ", drzavaZavrsetkaDrugogFakulteta=" + drzavaZavrsetkaDrugogFakulteta + ", student=" + student + "]";
 	}	
 	
 	

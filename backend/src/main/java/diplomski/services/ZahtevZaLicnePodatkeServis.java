@@ -28,12 +28,16 @@ public class ZahtevZaLicnePodatkeServis {
     public Iterable<ZahtevZaLicnePodatke> getZahteviByKorisnik(Long korisnikId) {
         return zahtevRepo.findByKorisnikID(korisnikId);
     }
+    
+    public Iterable<ZahtevZaLicnePodatke> getZahteviByKorisnickoIme(String korisnickoIme) {
+        return zahtevRepo.findByKorisnickoIme(korisnickoIme);
+    }
 
     public void addZahtev(ZahtevZaLicnePodatke zahtev) {
     	zahtevRepo.save(zahtev);
     }
 
-    public void updateZahtev(Long id, ZahtevZaLicnePodatke zahtev) {
+    public ZahtevZaLicnePodatke updateZahtev(Long id, ZahtevZaLicnePodatke zahtev) {
         Optional<ZahtevZaLicnePodatke> pronadjenZahtev = zahtevRepo.findById(id);
         if(pronadjenZahtev.isPresent()) {
             zahtev.setId(pronadjenZahtev.get().getId());
@@ -41,8 +45,9 @@ public class ZahtevZaLicnePodatkeServis {
             zahtev.setKorisnikID(pronadjenZahtev.get().getKorisnikID());
             zahtev.setPodnosilacZahteva(pronadjenZahtev.get().getPodnosilacZahteva());
             zahtev.setVrstaZahteva(pronadjenZahtev.get().getVrstaZahteva());
-            zahtevRepo.save(zahtev);
+            return zahtevRepo.save(zahtev);
         }
+        return zahtev;
     }
 
 }

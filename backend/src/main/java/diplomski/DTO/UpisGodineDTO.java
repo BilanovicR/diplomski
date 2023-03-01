@@ -8,6 +8,8 @@ public class UpisGodineDTO {
 	private String godinaUpisa;
 	private String espbStecenoUkupno;
 	private StudijskiProgram studijskiProgram;
+	private Long studentID;
+	private Long studijskiProgramID;
 
 	public UpisGodineDTO() {
 		super();
@@ -35,6 +37,18 @@ public class UpisGodineDTO {
 	}
 	public void setStudentSV20(StudentSV20 studentSV20) {
 		this.studentSV20 = studentSV20;
+	}
+	public Long getStudentID() {
+		return studentID;
+	}
+	public void setStudentID(Long studentID) {
+		this.studentID = studentID;
+	}
+	public Long getStudijskiProgramID() {
+		return studijskiProgramID;
+	}
+	public void setStudijskiProgramID(Long studijskiProgramID) {
+		this.studijskiProgramID = studijskiProgramID;
 	}
 
 }

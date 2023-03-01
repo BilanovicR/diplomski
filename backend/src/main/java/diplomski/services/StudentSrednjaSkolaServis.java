@@ -20,6 +20,10 @@ public class StudentSrednjaSkolaServis {
 	public StudentSrednjaSkola getSrednjuSkoluStudenta(Long studentID) {
         return skolaRepo.getByStudentID(studentID);
     }
+	
+	public StudentSrednjaSkola getSrednjuSkoluStudentaByIndeks(String indeks) {
+        return skolaRepo.getByStudentBrojIndeksa(indeks);
+    }
 
 	public StudentSrednjaSkola addStudentSkola(StudentSrednjaSkola skola) {
 		return skolaRepo.save(skola);

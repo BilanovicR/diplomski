@@ -22,6 +22,9 @@ public class StudentSrednjaSkola {
 
 	@Column(length=128, nullable = false)
 	private String naziv;
+	
+	@Column(length=128, nullable = false)
+	private String vrstaSkole;
 
 	@Column(length=128, nullable = false)
 	private String opstina;
@@ -95,8 +98,16 @@ public class StudentSrednjaSkola {
 		this.student = student;
 	}
 
+	public String getVrstaSkole() {
+		return vrstaSkole;
+	}
+
+	public void setVrstaSkole(String vrstaSkole) {
+		this.vrstaSkole = vrstaSkole;
+	}
+
 	public StudentSrednjaSkola(Long id, String naziv, String opstina, String grad, String drzava,
-			String godinaZavrsetka, Student student) {
+			String godinaZavrsetka, Student student, String vrstaSkole) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
@@ -105,6 +116,7 @@ public class StudentSrednjaSkola {
 		this.drzava = drzava;
 		this.godinaZavrsetka = godinaZavrsetka;
 		this.student = student;
+		this.vrstaSkole = vrstaSkole;
 	}
 
 	public StudentSrednjaSkola() {

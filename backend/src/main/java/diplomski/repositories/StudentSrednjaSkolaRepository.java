@@ -11,4 +11,6 @@ public interface StudentSrednjaSkolaRepository extends JpaRepository <StudentSre
 
 	@Query("SELECT skola FROM StudentSrednjaSkola skola WHERE skola.student.id = ?1")
 	StudentSrednjaSkola getByStudentID(Long studentID);
+	
+	StudentSrednjaSkola getByStudentBrojIndeksa(String brojIndeksa);
 }

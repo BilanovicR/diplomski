@@ -6,10 +6,13 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import diplomski.DTO.NoviUpisGodineDTO;
 import diplomski.DTO.StudentSV20;
 import diplomski.DTO.UpisGodineDTO;
+import diplomski.models.Student;
 import diplomski.models.StudentDetalji;
 import diplomski.models.StudentSrednjaSkola;
+import diplomski.models.StudijskiProgram;
 import diplomski.models.UpisGodine;
 import diplomski.repositories.UpisGodineRepository;
 
@@ -19,7 +22,17 @@ public class UpisGodineServis {
 	@Autowired
 	private UpisGodineRepository upisRepo;
 	
+	@Autowired
+	private StudentServis studentServis;
+	
+	@Autowired
+	private StudijskiProgramService spServis;
+	
 	public UpisGodineServis() {}
+	
+	public ArrayList<UpisGodine> getUpisiByStudent(String studentIndeks) {
+		return upisRepo.findByStudentId(studentIndeks);		
+	}
 	
 	public ArrayList<UpisGodineDTO> getUpisaneStudentePoGodini(String godinaUpisa){		
 		ArrayList<Object[]> upisaniStudenti = upisRepo.findAllByGodinaUpisa(godinaUpisa);
@@ -39,6 +52,18 @@ public class UpisGodineServis {
 	
 	public UpisGodine addUpisGodine(UpisGodine upis) {
 		return upisRepo.save(upis);		
+	}
+	
+	public UpisGodine addNoviUpis(NoviUpisGodineDTO noviUpis) {
+		Student student = studentServis.getStudentByBrojIndeksa(noviUpis.getBrojIndeksa()).get();
+		StudijskiProgram sp =spServis.getStudijskiProgramByID(noviUpis.getStudijskiProgramId()).get();
+		UpisGodine upis = new UpisGodine();
+		upis.setEspbStecenoUkupno(noviUpis.getEspbStecenoUkupno());
+		upis.setGodinaUpisa(noviUpis.getGodinaUpisa());
+		upis.setStudent(student);
+		upis.setStudijskiProgram(sp);
+		addUpisGodine(upis);
+		return upis;
 	}
 	
 	public UpisGodine updateUpisGodine(Long id, UpisGodine noviUpisGodine) {

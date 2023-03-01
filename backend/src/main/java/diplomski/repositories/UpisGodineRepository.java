@@ -19,5 +19,8 @@ public interface UpisGodineRepository extends JpaRepository <UpisGodine, Long> {
 
 	@Query("SELECT upis, sd, sss FROM UpisGodine upis, StudentDetalji sd, StudentSrednjaSkola sss WHERE upis.godinaUpisa = ?1 and sd.student = upis.student and sss.student= upis.student")
 	ArrayList<Object[]> findAllByGodinaUpisa(String godinaUpisa);
+	
+	@Query("SELECT upis FROM UpisGodine upis WHERE upis.student.brojIndeksa = ?1")
+	ArrayList<UpisGodine> findByStudentId(String studentIndeks);
 
 }

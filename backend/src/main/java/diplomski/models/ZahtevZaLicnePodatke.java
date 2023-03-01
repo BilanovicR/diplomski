@@ -25,20 +25,17 @@ public class ZahtevZaLicnePodatke {
 	private Date datumPodnosenjaZahteva;
 	
 	@Column(length=128)
-	@Temporal(value = TemporalType.DATE)
+	@Temporal(value = TemporalType.TIMESTAMP)
 	private Date datumFinalizacijeZahteva;
 	
 	@Column(length=128)
 	private String komentar;	
 	
 	@Column(length=128, nullable = false)
-	private Long korisnikID;
+	private String korisnikID;//korisnickoIme
 	
 	@Column(length=128, nullable = false)
-	private Long podnosilacZahteva;
-	
-	@Column(length=128)
-	private String dodaciURL;
+	private String podnosilacZahteva;
 
 	public Long getId() {
 		return id;
@@ -80,32 +77,24 @@ public class ZahtevZaLicnePodatke {
 		this.komentar = komentar;
 	}
 
-	public Long getKorisnikID() {
+	public String getKorisnikID() {
 		return korisnikID;
 	}
 
-	public void setKorisnikID(Long korisnikID) {
+	public void setKorisnikID(String korisnikID) {
 		this.korisnikID = korisnikID;
 	}
 
-	public String getDodaciURL() {
-		return dodaciURL;
-	}
-
-	public void setDodaciURL(String dodaciURL) {
-		this.dodaciURL = dodaciURL;
-	}
-
-	public Long getPodnosilacZahteva() {
+	public String getPodnosilacZahteva() {
 		return podnosilacZahteva;
 	}
 
-	public void setPodnosilacZahteva(Long podnosilacZahteva) {
+	public void setPodnosilacZahteva(String podnosilacZahteva) {
 		this.podnosilacZahteva = podnosilacZahteva;
 	}
 
 	public ZahtevZaLicnePodatke(Long id, String vrstaZahteva, Date datumPodnosenjaZahteva,
-			Date datumFinalizacijeZahteva, String komentar, Long korisnikID, Long podnosilacZahteva, String dodaciURL) {
+			Date datumFinalizacijeZahteva, String komentar, String korisnikID, String podnosilacZahteva) {
 		super();
 		this.id = id;
 		this.vrstaZahteva = vrstaZahteva;
@@ -114,11 +103,19 @@ public class ZahtevZaLicnePodatke {
 		this.komentar = komentar;
 		this.korisnikID = korisnikID;
 		this.podnosilacZahteva = podnosilacZahteva;
-		this.dodaciURL = dodaciURL;
 	}
 
 	public ZahtevZaLicnePodatke() {
 		super();
-	}	
+	}
+
+	@Override
+	public String toString() {
+		return "ZahtevZaLicnePodatke [id=" + id + ", vrstaZahteva=" + vrstaZahteva + ", datumPodnosenjaZahteva="
+				+ datumPodnosenjaZahteva + ", datumFinalizacijeZahteva=" + datumFinalizacijeZahteva + ", komentar="
+				+ komentar + ", korisnikID=" + korisnikID + ", podnosilacZahteva=" + podnosilacZahteva + "]";
+	}
+	
+	
 
 }

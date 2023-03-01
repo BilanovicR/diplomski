@@ -43,6 +43,14 @@ public class Fakultet {
 		this.naziv = naziv;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getOpstina() {
 		return opstina;
 	}

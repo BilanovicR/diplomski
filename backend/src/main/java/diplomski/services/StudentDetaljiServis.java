@@ -20,6 +20,10 @@ public class StudentDetaljiServis {
 	public StudentDetalji getDetaljeStudenta(Long studentID) {
         return detaljiRepo.findByStudentId(studentID);
     }
+	
+	public StudentDetalji getDetaljeStudentaByIndeks(String indeks) {
+        return detaljiRepo.findByStudentBrojIndeksa(indeks);
+    }
 
 	public StudentDetalji addStudentDetalje(StudentDetalji detalji) {
 		return detaljiRepo.save(detalji);
@@ -30,9 +34,12 @@ public class StudentDetaljiServis {
 		return detaljiRepo.save(detalji);
     }
 	
-	public void removeStudentDetalji(Long studentID) {
-        StudentDetalji detalji = getDetaljeStudenta(studentID);
-        detaljiRepo.delete(detalji);
+	public void removeStudentDetalji(String brojIndeksa) {
+        StudentDetalji detalji = getDetaljeStudentaByIndeks(brojIndeksa);
+        
+        if(detalji != null) {
+        	detaljiRepo.delete(detalji);
+        }
     }
 	
 	public StudentDetalji updateStudentDetalji(Long id, StudentDetalji sd) {

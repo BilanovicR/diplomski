@@ -44,16 +44,18 @@ public class KorisnikServis {
         korisnikRepo.save(korisnik);
     }
 
-    public void removeKorisnik(Long id) {
-        Optional<Korisnik> korisnik = korisnikRepo.findById(id);
-        korisnikRepo.delete(korisnik.get());
+    public void removeKorisnik(String brojIndeksa) {
+        Optional<Korisnik> korisnik = korisnikRepo.findKorisnikByBrojIndeksa(brojIndeksa);
+        if(korisnik.isPresent()) {
+        	korisnikRepo.delete(korisnik.get());
+        }
     }
 
-    public Korisnik updateKorisnik(Long id, Korisnik korisnik) {
-        Optional<Korisnik> pronadjenKorisnik = korisnikRepo.findById(id);
+    public Korisnik updateKorisnik(String korisnickoIme, Korisnik korisnik) {
+        Optional<Korisnik> pronadjenKorisnik = korisnikRepo.findByKorisnickoIme(korisnickoIme);
         if(pronadjenKorisnik.isPresent()) {
-        	korisnik.setId(pronadjenKorisnik.get().getId());
-            return korisnikRepo.save(korisnik);
+        	pronadjenKorisnik.get().setSifra(passwordEncoder.encode(korisnik.getSifra()));
+            return korisnikRepo.save(pronadjenKorisnik.get());
         }
         return null;
     }

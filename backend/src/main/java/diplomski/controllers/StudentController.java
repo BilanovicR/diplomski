@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,6 +37,7 @@ import diplomski.utils.View.HideOptionalProperties;
 
 @RestController
 @RequestMapping("/student")
+@CrossOrigin(origins={"http://localhost:4200"})
 public class StudentController {
 	
 	@Autowired
@@ -65,7 +67,7 @@ public class StudentController {
     
     @JsonView(HideOptionalProperties.class)
     @RequestMapping(value="/indeks/{indeks}", method=RequestMethod.GET)
-    @PreAuthorize("hasAnyAuthority('administrator', 'profesor', 'api_korisnik')")
+    @PreAuthorize("hasAnyAuthority('administrator', 'profesor', 'api_korisnik', 'student')")
     public ResponseEntity<Student> getStudentByBrojIndeksa(@PathVariable String indeks) {
         Optional<Student> student = studentServis.getStudentByBrojIndeksa(indeks);
         if(student.isPresent()) {
@@ -74,9 +76,23 @@ public class StudentController {
         return new ResponseEntity<Student>(HttpStatus.NOT_FOUND);
     }
     
+    @RequestMapping(value="/sv20/{indeks}", method=RequestMethod.GET)
+	@JsonView(HideOptionalProperties.class)
+	@PreAuthorize("hasAnyAuthority('administrator', 'student', 'api_korisnik')")
+    public @ResponseBody StudentSV20 getStudentSV20(@PathVariable String indeks) {		
+		Optional<Student> student = studentServis.getStudentByBrojIndeksa(indeks);
+		if(!student.isPresent()) {
+			return null;
+		}
+		StudentDetalji detalji = studentDetaljiServis.getDetaljeStudentaByIndeks(indeks);
+		StudentSrednjaSkola skola = studentSkolaServis.getSrednjuSkoluStudentaByIndeks(indeks);
+		
+        return new StudentSV20(student.get(), skola, detalji);
+    }
+    
     @Transactional
     @JsonView(HideOptionalProperties.class)
-    @PreAuthorize("hasAnyAuthority('administrator')")
+   @PreAuthorize("hasAnyAuthority('administrator')")
 	@RequestMapping(value = "/add", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<StudentSV20> addStudent(
 			@RequestPart("studentImage") Optional<MultipartFile> file, 
@@ -107,11 +123,12 @@ public class StudentController {
 	    		@RequestPart("student") String student) throws IOException {
     	StudentSV20 studentSV20 = new ObjectMapper().readValue(student, StudentSV20.class);
 
-    	if(studentSV20.getStudent().getFotografijaURL() == null 
+    	if(studentSV20.getStudent().getFotografijaURL().isBlank() 
           		 || studentSV20.getStudent().getFotografijaURL().contains("default.png")) {
        		
        		if(file.isPresent()) {
            		studentSV20.getStudent().setFotografijaURL(fileService.saveProfileImage(file.get(), "student_" + studentSV20.getStudent().getBrojIndeksa(), studentSV20.getStudent()));
+           		studentSV20.getStudent().setFotografijaURL(fileService.saveProfileImage(file.get(), "student_" + studentSV20.getStudent().getId(), studentSV20.getStudent()));
        		} else {
        			studentSV20.getStudent().setFotografijaURL(fileService.defaultStudentImageURL);
        		}
@@ -129,7 +146,7 @@ public class StudentController {
 			@RequestParam(required = false) String prezime, @RequestParam(required = false) String brojIndeksa) {
 
 		Collection<StudentDTO> students = studentServis.pretraziStudente(ime, prezime, brojIndeksa);
-		if(!students.isEmpty()) {
+		if(students != null && !students.isEmpty()) {
 			return new ResponseEntity<Collection<StudentDTO>>(students, HttpStatus.OK);
 		}
 		else return new ResponseEntity<Collection<StudentDTO>>(HttpStatus.NO_CONTENT);
@@ -148,17 +165,18 @@ public class StudentController {
 		
         return new StudentSV20(student.get(), skola, detalji);
     }
-	
+
 	@Transactional
 	@JsonView(HideOptionalProperties.class)
-	@RequestMapping(value = "/obrisi/{studentID}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/obrisi/{brojIndeksa}", method = RequestMethod.DELETE)
 	@PreAuthorize("hasAnyAuthority('administrator')")
-	public ResponseEntity<Student> obrisiStudenta(@PathVariable Long studentID) {
+	public ResponseEntity<String> obrisiStudenta(@PathVariable String brojIndeksa) {
 		try {
-            studentServis.obrisiStudenta(studentID);
+            studentServis.obrisiStudenta(brojIndeksa);
         }catch (Exception e) {
             return new ResponseEntity<Student>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<Student>(HttpStatus.OK);
+        return new ResponseEntity<String>(HttpStatus.OK);
 	}
 }
